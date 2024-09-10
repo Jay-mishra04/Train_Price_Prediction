@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Train Fare Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        select, input[type="number"], input[type="submit"] {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Train Fare Prediction</h1>
+        <form action="/predict" method="POST">
+            <label for="origin">Origin:</label>
+            <select id="origin" name="origin" required>
+                {% for origin in origins %}
+                <option value="{{ origin }}">{{ origin }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="destination">Destination:</label>
+            <select id="destination" name="destination" required>
+                {% for destination in destinations %}
+                <option value="{{ destination }}">{{ destination }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="train_type">Train Type:</label>
+            <select id="train_type" name="train_type" required>
+                {% for train_type in train_types %}
+                <option value="{{ train_type }}">{{ train_type }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="train_class">Train Class:</label>
+            <select id="train_class" name="train_class" required>
+                {% for train_class in train_classes %}
+                <option value="{{ train_class }}">{{ train_class }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="fare">Fare:</label>
+            <select id="fare" name="fare" required>
+                {% for fare in fares %}
+                <option value="{{ fare }}">{{ fare }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="journey_duration_hrs">Journey Duration (hrs):</label>
+            <input type="number" step="0.1" id="journey_duration_hrs" name="journey_duration_hrs" placeholder="Enter journey duration" required>
+
+            <label for="booking_before_days">Booking Before Days:</label>
+            <input type="number" id="booking_before_days" name="booking_before_days" placeholder="Enter days before booking" required>
+
+            <input type="submit" value="Predict">
+        </form>
+        <div id="result" class="result">
+            <!-- Prediction result will be displayed here -->
+            <p id="fareResult">Predicted Fare: $<span id="fareValue">0.00</span></p>
+        </div>
+    </div>
+</body>
+</html>
